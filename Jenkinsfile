@@ -4,13 +4,7 @@ pipeline {
 
     stages {
 
-        stage('Static Code Analysis') {
-            steps {
-                bat "matlab -batch \"checkcode(pwd)\""
-            }
-        }
-
-        stage('Run MATLAB Tests') {
+        stage('Run MATLAB CI Pipeline') {
             steps {
                 bat "matlab -batch \"runTests\""
             }
