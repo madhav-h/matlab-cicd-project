@@ -1,15 +1,27 @@
 pipeline {
+
     agent any
 
     stages {
 
-        stage('Run MATLAB Test') {
+        stage('Checkout Code') {
             steps {
-                bat """
-                "C:\\Program Files\\MATLAB\\R2025b\\bin\\matlab.exe" -batch "disp('Running MATLAB test from Jenkins CI/CD')"
-                """
+                git 'https://github.com/madhav-h/matlab-cicd-project.git'
+            }
+        }
+
+        stage('Run MATLAB Tests') {
+            steps {
+                bat 'matlab -batch "runTests"'
+            }
+        }
+
+        stage('Publish Results') {
+            steps {
+                junit 'results.xml'
             }
         }
 
     }
+
 }
