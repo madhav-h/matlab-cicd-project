@@ -4,27 +4,15 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Static Code Analysis') {
             steps {
-                bat "matlab -batch \"checkcode('src')\""
+                bat "matlab -batch \"checkcode(pwd)\""
             }
         }
 
         stage('Run MATLAB Tests') {
             steps {
                 bat "matlab -batch \"runTests\""
-            }
-        }
-
-        stage('Build Artifact') {
-            steps {
-                bat "matlab -batch \"disp('Building MATLAB artifact...')\""
             }
         }
 
@@ -37,15 +25,12 @@ pipeline {
     }
 
     post {
-
         success {
             echo 'Pipeline completed successfully!'
         }
-
         failure {
             echo 'Pipeline failed!'
         }
-
     }
 
 }
